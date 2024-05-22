@@ -20,6 +20,9 @@
 
         <form action="{{ route('fasilitas-store') }}" method="post" enctype="multipart/form-data">
             @csrf
+
+            <input type="text" name="ruang_id" value="{{ request()->input('ruang_id', old('ruang_id')) }}" hidden>
+
             <div class="mb-3">
                 <label for="NamaRuang" class='form-label'>Nama Ruang</label>
                 <input type="text" name="NamaRuang" value="{{ old('NamaRuang', isset($room) ? $room->NamaRuang : '') }}" id="NamaRuang" class="form-control" placeholder="co: Yohanes">

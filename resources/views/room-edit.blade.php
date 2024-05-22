@@ -2,7 +2,7 @@
 @section('title', 'Edit Ruang')
 
 @section('content')
-    
+
 
     <div class="row">
         <div class="col-lg-12 margin-tb">
@@ -41,12 +41,61 @@
             <div class="mb-3">
                 <label for="Gambar" class='form-label,'>Gambar</label>
                 <input type="file" name="Gambar" id='Gambar' class="form-control">
-                <img src="/Gambar/{{ $room->Gambar }}" alt="">
+                <img src="/Gambar/{{ $room->Gambar }}" alt="" style="max-width: 200px;">
             </div>
+
             <div class="mt-3">
                 <button class="btn btn-success" type="submit">Simpan</button>
             </div>
         </form>
+    </div>
+
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="d-flex">
+                    <h2 class="p-2">Barang</h2>
+                    <div class="ms-auto p-2">
+                        <a class="btn btn-primary" href="{{ route('create-fasilitas', ['ruang_id' => $room->id]) }}" role="button">Tambah Barang</a>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-body">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Nama Barang</th>
+                                    <th scope="col">Deskripsi</th>
+                                    <th scope="col">Jumlah</th>
+                                    <th scope="col">Aksi</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach ($fasilitas as $fasil)
+                                    <tr>
+                                        <td>{{ $fasil->Item->NamaBarang }}</td>
+                                        <td>{{ $fasil->Item->Deskripsi }}</td>
+                                        <td>{{ $fasil->JumlahBarang }}</td>
+                                        <td>
+                                            <form action="{{ route('fasilitas-destroy', $fasil->id) }}" method="POST">
+                                                @csrf
+                                                @method('DELETE')
+
+                                                <input type="text" value="fasil_id" value="{{ $fasil->id }}" hidden>
+
+                                                <a href="{{ route('fasilitas-edit', $fasil->id) }}" class="btn btn-warning">Edit</a>
+                                                <button type="submit" class="btn btn-danger">Hapus</button>
+                                            </form>
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 
 @endsection

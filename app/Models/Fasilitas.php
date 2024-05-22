@@ -26,13 +26,17 @@ class Fasilitas extends Model
         'JumlahBarang',
     ];
 
-    public function room()
+    public function Room()
     {
-        return $this->belongsTo(Room::class, 'ruang_id');
+        // return $this->belongsTo(Room::class, 'ruang_id');
+        // return $this->belongsTo(Room::class, 'id', 'ruang_id');
+        return $this->hasOne(Room::class, 'id', 'ruang_id');
     }
 
-    public function item()
+    public function Item()
     {
-        return $this->belongsTo(Item::class, 'barang_id'); // Use barang_id
+        return $this->belongsTo(Item::class, 'barang_id');
+        // return $this->belongsTo(Item::class, 'id', 'barang_id');
+        // return $this->hasMany(Item::class, 'id', 'barang_id');
     }
 }

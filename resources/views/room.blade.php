@@ -20,27 +20,21 @@
         <table class='table '>
             <thead>
                 <tr>
-
                     <th>Nama Ruang</th>
                     <th>Kapasitas</th>
-                    <th>Fasilitas</th>
                     <th>Gambar</th>
                     <th>Aksi</th>
                 </tr>
             </thead>
             <tbody>
-                @foreach ($rooms as $item)
+                @foreach ($rooms as $room)
                     <tr>
-
-                        <td>{{ $item->NamaRuang }}</td>
-
-                        <td>{{ $item->Kapasitas }}</td>
-                        <td><img src="{{ asset('Gambar/' . $item->Gambar) }}" width="100px"></td>
+                        <td>{{ $room->NamaRuang }}</td>
+                        <td>{{ $room->Kapasitas }}</td>
+                        <td><img src="{{ asset('Gambar/' . $room->Gambar) }}" width="100px"></td>
                         <td>
-
-                            <form action="{{ route('room-destroy', $item->id) }}" method="POST">
-                                <a href="{{ route('create-fasilitas', ['ruang_id' => $item->id]) }}" class="btn btn-primary">+ fasilitas</a>
-                                <a href="{{ route('room-edit', $item->id) }}" class="btn btn-warning">Edit</a>
+                            <form action="{{ route('room-destroy', $room->id) }}" method="POST">
+                                <a href="{{ route('room-edit', $room->id) }}" class="btn btn-warning">Edit</a>
                                 @csrf
                                 @method('DELETE')
                                 <button type="submit" class="btn btn-danger">Hapus</button>

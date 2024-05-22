@@ -30,10 +30,8 @@ class Item extends Model
 
     // Define fillable attributes to allow mass assignment
 
-
     public function Fasilitas()
     {
-        // return $this->hasMany(Fasilitas::class, 'barang_id');
         return $this->belongsTo(Fasilitas::class, 'barang_id');
     }
 }

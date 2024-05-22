@@ -31,4 +31,10 @@ class Room extends Model
         'Kapasitas',
         'Gambar',
     ];
+
+    public function Fasilitas()
+    {
+        return $this->belongsTo(Fasilitas::class, 'id', 'ruang_id');
+        // return $this->hasMany(Fasilitas::class, 'id', 'ruang_id');
+    }
 }

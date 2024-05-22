@@ -24,17 +24,18 @@ class FasilitasController extends Controller
         $room = Room::find($roomId); // Dapatkan room berdasarkan id
         $rooms = Room::all();
         $items = Item::all();
+
         return view('fasilitas-add', compact('room', 'rooms', 'items'));
     }
 
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'ruang_id' => 'required',
-            'barang_id' => 'required',
+            'ruang_id'     => 'required',
+            'barang_id'    => 'required',
             'JumlahBarang' => 'required|numeric',
         ], [
-
+            'ruang_id.required' => 'Bidang Ruang wajib diisi.',
             'barang_id.required' => 'Bidang barang wajib diisi.',
             'JumlahBarang.required' => 'Bidang jumlah barang wajib diisi.',
             'JumlahBarang.numeric' => 'Bidang jumlah barang harus berupa angka.',
@@ -50,7 +51,9 @@ class FasilitasController extends Controller
             'JumlahBarang' => $request->JumlahBarang,
         ]);
 
-        return redirect()->route('fasilitas');
+        // return redirect()->route('fasilitas');
+
+        return to_route('room-edit', $request->ruang_id);
     }
     public function edit($id)
     {
@@ -85,13 +88,23 @@ class FasilitasController extends Controller
             'JumlahBarang' => $request->JumlahBarang,
         ]);
 
-        return redirect()->route('fasilitas');
+        // return redirect()->route('fasilitas');
+
+        return to_route('room-edit', $request->ruang_id);
     }
-    public function destroy($id)
+
+    public function destroy(Request $request, $id)
     {
+        // $request->validate([
+        //     'fasil_id' => 'required',
+        // ]);
+
         $fasilitas = Fasilitas::findOrFail($id);
         $fasilitas->delete();
 
-        return redirect()->route('fasilitas')->with('status', 'Fasilitas berhasil dihapus');
+        // return redirect()->route('fasilitas')->with('status', 'Fasilitas berhasil dihapus');
+
+        // return to_route('room-edit', $request->fasil_id);
+        return to_route('room-edit', $fasilitas->Room->id);
     }
 }
