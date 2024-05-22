@@ -96,7 +96,9 @@ class RoomController extends Controller
 
         // dd($room->Fasilitas);
 
-        $room->Fasilitas->delete();
+        if ($room->Fasilitas) {
+            $room->Fasilitas->delete();
+        }
 
         // Hapus ruangan
         $room->delete();
